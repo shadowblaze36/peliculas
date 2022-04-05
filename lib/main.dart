@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:peliculas/providers/movies_provider.dart';
 import 'package:provider/provider.dart';
@@ -30,9 +31,24 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Peliculas',
       initialRoute: 'home',
-      routes: {'home': (_) => HomeScreen(), 'details': (_) => DetailsScreen()},
-      theme: ThemeData.light()
-          .copyWith(appBarTheme: AppBarTheme(color: Colors.redAccent)),
+      routes: {
+        'home': (_) => const HomeScreen(),
+        'details': (_) => DetailsScreen()
+      },
+      theme: ThemeData.light().copyWith(
+        appBarTheme: const AppBarTheme(color: Colors.redAccent),
+        useMaterial3: true,
+      ),
+      scrollBehavior: MyCustomScrollBehavior(),
     );
   }
+}
+
+class MyCustomScrollBehavior extends MaterialScrollBehavior {
+  // Override behavior methods and getters like dragDevices
+  @override
+  Set<PointerDeviceKind> get dragDevices => {
+        PointerDeviceKind.touch,
+        PointerDeviceKind.mouse,
+      };
 }
